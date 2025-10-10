@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Gadget Kadai</title>
+  <style>
+    body { font-family: 'Poppins', sans-serif; background-color: #f9f9f9; margin: 0; }
+    .checkout-container { max-width: 800px; margin: 60px auto; background: #fff; border-radius: 15px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #007bff; }
+    .cart-item { display: flex; align-items: center; justify-content: space-between; margin: 20px 0; }
+    .cart-item img { width: 100px; border-radius: 10px; }
+    .blue-button { background-color: #007bff; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+    .blue-button:hover { background-color: #0056b3; }
+    footer { background-color: #222; color: white; text-align: center; padding: 20px; margin-top: 60px; }
+  </style>
+</head>
+<body>
+  <div class="checkout-container">
+    <h1>Checkout</h1>
+    <div id="cart"></div>
+    <hr>
+    <h2 id="grand-total"></h2>
+    <button id="proceed-btn" class="blue-button">Proceed to Payment</button>
+  </div>
+
+  <footer>Copyright © 2025 Gadget Kadai</footer>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cartDiv = document.getElementById('cart');
+    const product = JSON.parse(localStorage.getItem('selectedProduct'));
+
+    if (product) {
+      cartDiv.innerHTML = `
+        <div class="cart-item">
+          <img src="${product.image}" alt="">
+          <div>
+            <h3>${product.name}</h3>
+            <p>${product.price}</p>
+          </div>
+        </div>
+      `;
+      document.getElementById('grand-total').innerText = 'Grand Total: ' + product.price;
+    } else {
+      cartDiv.innerHTML = '<p>No items in cart.</p>';
+    }
+
+    document.getElementById('proceed-btn').addEventListener('click', () => {
+      const totalPrice = product ? product.price : '₹0.00';
+      localStorage.setItem('finalAmount', totalPrice);
+      window.location.href = 'payment.html';
+    });
+  });
+  </script>
+</body>
+</html>
