@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment - Gadget Kadai</title>
+  <style>
+    body { font-family: 'Poppins', sans-serif; background-color: #f9f9f9; margin: 0; }
+    .payment-container { max-width: 800px; margin: 60px auto; background: #fff; border-radius: 15px; padding: 40px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #007bff; }
+    .product-summary { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; background: #f2f7ff; padding: 15px; border-radius: 10px; }
+    .product-summary img { width: 80px; border-radius: 8px; }
+    label { font-weight: 500; display: block; margin-top: 15px; }
+    input, textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; margin-top: 8px; }
+    .blue-button { background-color: #007bff; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; margin-top: 25px; transition: 0.3s; }
+    .blue-button:hover { background-color: #0056b3; }
+    footer { background-color: #222; color: white; text-align: center; padding: 20px; margin-top: 60px; }
+  </style>
+</head>
+<body>
+  <div class="payment-container">
+    <h1>Payment Details</h1>
+    <div id="product-summary" class="product-summary"></div>
+
+    <form id="payment-form">
+      <label>Full Name:</label>
+      <input type="text" id="fullname" required>
+      <label>Address:</label>
+      <textarea id="address" required></textarea>
+      <label>Phone Number:</label>
+      <input type="tel" id="phone" required>
+      <label>Payment Method:</label>
+      <div>
+        <input type="radio" name="method" value="UPI" required> UPI
+        <input type="radio" name="method" value="Card"> Card
+        <input type="radio" name="method" value="COD"> Cash on Delivery
+      </div>
+      <button type="submit" class="blue-button">Pay Now</button>
+    </form>
+  </div>
+
+  <footer>Copyright © 2025 Gadget Kadai</footer>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const product = JSON.parse(localStorage.getItem('selectedProduct'));
+    const total = localStorage.getItem('finalAmount') || '₹0.00';
+    const summary = document.getElementById('product-summary');
+
+    if (product) {
+      summary.innerHTML = `<img src="${product.image}" alt=""><div><h3>${product.name}</h3><p>Price: ${product.price}</p><p>Total: ${total}</p></div>`;
+    }
+
+    document.getElementById('payment-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = {
+        name: document.getElementById('fullname').value,
+        address: document.getElementById('address').value,
+        phone: document.getElementById('phone').value
+      };
+      localStorage.setItem('userDetails', JSON.stringify(user));
+      window.location.href = 'order-success.html';
+    });
+  });
+  </script>
+</body>
+</html>
