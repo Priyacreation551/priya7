@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gadget Kadai - Home</title>
+  <link href="styles.css" rel="stylesheet">
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Nav scroll effect
+    document.addEventListener('scroll', () => {
+      let navBar = document.querySelector('nav');
+      if (window.scrollY > 0) {
+        navBar.style.background = 'white';
+        navBar.style.boxShadow = '0 5px 20px rgba(190, 190, 190, 0.15)';
+      } else {
+        navBar.style.background = 'transparent';
+        navBar.style.boxShadow = 'none';
+      }
+    });
+
+    // Add to Cart functionality
+    const buttons = document.querySelectorAll('.add-to-cart');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const product = {
+          name: btn.getAttribute('data-name'),
+          price: btn.getAttribute('data-price'),
+          image: btn.getAttribute('data-image')
+        };
+        localStorage.setItem('selectedProduct', JSON.stringify(product));
+        window.location.href = 'checkout.html';
+      });
+    });
+  });
+  </script>
+</head>
+<body>
+  <nav>
+    <div id="navbar">
+      <div id="navbar-logo"><img src="images/gadget.png" width="180" height="100"></div>
+      <div id="navbar-links">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+        <button class="blue-button">Shop Now</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BEST SELLERS -->
+  <div class="product-section-container">
+    <h1>Best Sellers</h1>
+    <ul class="product-section-items-wrapper">
+      <li class="product-item">
+        <div class="product-image">
+          <img src="images/collection/watch.png" alt="Smartwatch">
+        </div>
+        <div class="product-text">
+          <span class="product-title">Turquoise Smartwatch</span>
+          <div class="product-purchase">
+            <span class="product-price">₹53,000.00</span>
+            <button class="blue-button add-to-cart"
+              data-name="Turquoise Smartwatch"
+              data-price="₹53,000.00"
+              data-image="images/collection/watch.png">
+              Add To Cart
+            </button>
+          </div>
+        </div>
+      </li>
+      <li class="product-item">
+        <div class="product-image">
+          <img src="images/collection/iPhone-17-Pro-Max-Concept-Art-PNG.png" alt="iPhone 17">
+        </div>
+        <div class="product-text">
+          <span class="product-title">iPhone 17 Pro Max</span>
+          <div class="product-purchase">
+            <span class="product-price">₹1,99,900.00</span>
+            <button class="blue-button add-to-cart"
+              data-name="iPhone 17 Pro Max"
+              data-price="₹1,99,900.00"
+              data-image="images/collection/iPhone-17-Pro-Max-Concept-Art-PNG.png">
+              Add To Cart
+            </button>
+          </div>
+        </div>
+      </li>
+      <li class="product-item">
+        <div class="product-image">
+          <img src="images/collection/headphone.png" alt="Headphone">
+        </div>
+        <div class="product-text">
+          <span class="product-title">Candyfloss Headphone</span>
+          <div class="product-purchase">
+            <span class="product-price">₹59,900.00</span>
+            <button class="blue-button add-to-cart"
+              data-name="Candyfloss Headphone"
+              data-price="₹59,900.00"
+              data-image="images/collection/headphone.png">
+              Add To Cart
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
