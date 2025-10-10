@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Successful - Gadget Kadai</title>
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: #f9f9f9; margin: 0; }
+    .success-container { max-width: 600px; margin: 100px auto; background: #fff; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; padding: 50px; }
+    .success-icon { font-size: 80px; color: #28a745; }
+    h1 { color: #28a745; margin-top: 20px; }
+    .summary { margin-top: 20px; }
+    img { width: 100px; border-radius: 10px; margin-top: 10px; }
+    .blue-button { background-color: #007bff; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; margin-top: 30px; transition: 0.3s; }
+    .blue-button:hover { background-color: #0056b3; }
+    footer { background-color: #222; color: white; text-align: center; padding: 20px; margin-top: 80px; }
+  </style>
+</head>
+<body>
+  <div class="success-container">
+    <div class="success-icon">✅</div>
+    <h1>Order Placed Successfully!</h1>
+    <p id="user-msg"></p>
+    <div class="summary" id="order-summary"></div>
+    <button class="blue-button" onclick="window.location.href='index.html'">Back to Home</button>
+  </div>
+
+  <footer>Copyright © 2025 Gadget Kadai</footer>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(localStorage.getItem('userDetails'));
+    const product = JSON.parse(localStorage.getItem('selectedProduct'));
+    const total = localStorage.getItem('finalAmount') || '₹0.00';
+
+    if (user && product) {
+      document.getElementById('user-msg').textContent = `Thank you, ${user.name}! Your order has been confirmed.`;
+      document.getElementById('order-summary').innerHTML = `
+        <img src="${product.image}" alt="">
+        <p><b>${product.name}</b></p>
+        <p>Total Paid: <b>${total}</b></p>`;
+    }
+
+    // clear storage after confirmation
+    localStorage.removeItem('selectedProduct');
+    localStorage.removeItem('finalAmount');
+    localStorage.removeItem('userDetails');
+  });
+  </script>
+</body>
+</html>
